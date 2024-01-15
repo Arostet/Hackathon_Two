@@ -22,7 +22,9 @@ form.addEventListener("submit", (e) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.msg);
+        console.log('user: ',data.username);
+        localStorage.setItem('username', data.username);
+        window.location.href = "http://localhost:3001/hello";
       })
       .catch((err) => {
         console.log(err);

@@ -14,7 +14,8 @@ app.use('/', router);
 app.use('/', express.static( __dirname+'/public'));
 app.use('/user_login', express.static( __dirname+'/public/login.html'));
 app.use('/user_register', express.static( __dirname+'/public/registration.html'));
-// app.use('/user_page', express.static( __dirname+'/public/user_page.html'));
+app.use('/hello', express.static( __dirname+'/public/hello_page.html'));
+app.use('/user_page', express.static( __dirname+'/public/user_page.html'));
 
 app.listen(3001, () => {
   console.log("listening on 3001");
