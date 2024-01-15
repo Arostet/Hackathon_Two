@@ -18,12 +18,12 @@ const newUserInDB =(username, hashedPass, email) =>{
 }
 
 
-// const checkUser = (enteredUsername) => {
-//   return db('hashpwd').select('password').where({username : enteredUsername})
-// };
+const getPassword = (enteredUsername) => {
+  return db('users').select('password').where({username : enteredUsername})
+};
 
 
 module.exports = {
     newUserInDB,
-    // checkUser,
+    getPassword,
 }
