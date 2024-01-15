@@ -2,44 +2,45 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 const {
+    isUserExists,
     newUserInDB,
     getPassword,
 } = require ('../modules/user_module.js');
 
 
-
 const registerNewUser = (req, res) => {
-    console.log('Start registerNewUser');
-    const {username, password, email} = req.body;
-    console.log('get data', username, password, email);
-    const salt = bcrypt.genSaltSync(saltRounds);
-    const hashedPass = bcrypt.hashSync(password, salt)
-    console.log('hashed password', hashedPass);
-    newUserInDB(username, hashedPass, email)
-        .then(data => {
-            console.log('user created',data)
-            res.json(data)
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(404).json({msg:'can not create a user'})
-        });
-}
+    const { username, password, email } = req.body;
+
+    isUserExists(username, email).then(users => {
+        if (users.length > 0){
+            res.status(409).json({ msg: 'User with this username or email already exists' });
+        } else {
+            const salt = bcrypt.genSaltSync(saltRounds);
+            const hashedPass = bcrypt.hashSync(password, salt);
+
+            newUserInDB(username, hashedPass, email)
+                .then(data => {
+                    res.status(200).json(data);
+                })
+                .catch(err => {
+                    console.error(err);
+                    res.status(400).json({ msg: err.message });
+                });
+        }
+    })
+};
 
 
 const logIn = (req, res) => {
     const { username, password } = req.body;
-    console.log(username, password);
     getPassword(username).then((user) => {
         if (user.length === 0) {
             res.status(404).json({ success: false, msg: 'User not found' });
         } else {
-            console.log(user[0]);
             const hashedPasswordFromDB = user[0].password;
-            console.log(hashedPasswordFromDB);
             bcrypt.compare(password, hashedPasswordFromDB, (err, result) => {
                 if (err) {
-                    console.error('Error during password comparison:', err);
+                    console.error(err);
                     res.status(500).json({ success: false, msg: 'Internal server error' });
                 } else {
                     if (result) {
@@ -50,8 +51,8 @@ const logIn = (req, res) => {
                 }
             });
         }
-    }).catch((error) => {
-        console.error('Error during user retrieval:', error);
+    }).catch((err) => {
+        console.error(err);
         res.status(500).json({ success: false, msg: 'Internal server error' });
     });
 };

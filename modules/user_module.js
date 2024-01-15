@@ -1,5 +1,9 @@
 const {db} = require('../config/db_users.js');
 
+const isUserExists = (username, email) => {
+  return db('users').where({ username }).orWhere({ email });
+};
+
 
 const newUserInDB =(username, hashedPass, email) =>{
     try{
@@ -13,7 +17,7 @@ const newUserInDB =(username, hashedPass, email) =>{
           .returning('*')
     }
     catch (error){
-        console.log(error)
+        console.log(error);
     }
 }
 
@@ -24,6 +28,7 @@ const getPassword = (enteredUsername) => {
 
 
 module.exports = {
-    newUserInDB,
-    getPassword,
+  isUserExists,
+  newUserInDB,
+  getPassword,
 }

@@ -6,8 +6,7 @@ form.addEventListener("submit", (e) => {
 
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
-  console.log(username);
-  console.log(password);
+  
   let userData = { username, password };
   const sendData = async () => {
     fetch("http://localhost:3001/login", {
@@ -19,11 +18,13 @@ form.addEventListener("submit", (e) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.success = true) {
-          console.log('user: ', username);
+
+        if (data.success == true) {
           localStorage.setItem('username', username);
-          console.log(localStorage.getItem('username'))
           window.location.href = "http://localhost:3001/hello";
+
+        } else {
+          document.getElementById('error').innerText = data.msg;
         }
       })
       .catch((err) => {
