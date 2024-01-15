@@ -1,13 +1,14 @@
 const form = document.forms[0];
 
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const username = document.getElementById("username").value;
-  const pass = document.getElementById("password").value;
+  const password = document.getElementById("password").value;
   console.log(username);
-  console.log(pass);
-  let userData = { username, pass };
+  console.log(password);
+  let userData = { username, password };
   const sendData = async () => {
     fetch("http://localhost:3001/login", {
       method: "POST",
@@ -18,7 +19,12 @@ form.addEventListener("submit", (e) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        if (data.success = true) {
+          console.log('user: ', username);
+          localStorage.setItem('username', username);
+          console.log(localStorage.getItem('username'))
+          window.location.href = "http://localhost:3001/hello";
+        }
       })
       .catch((err) => {
         console.log(err);
