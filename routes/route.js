@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+<<<<<<< Updated upstream
 const {
     registerNewUser,
     // logIn,
@@ -12,3 +13,6 @@ router.post('/register', registerNewUser)
 module.exports = {
     router
 }
+=======
+const { getExercise } = require();
+>>>>>>> Stashed changes
