@@ -2,7 +2,6 @@ const {db} = require('../config/db_users.js');
 
 
 const newUserInDB =(username, hashedPass, email) =>{
-    console.log(username, hashedPass, email);
     try{
         return db('users').insert(
             {
@@ -11,7 +10,7 @@ const newUserInDB =(username, hashedPass, email) =>{
               password:hashedPass
             }
           )
-          .returning('*').then(data => console.log(data))
+          .returning('*')
     }
     catch (error){
         console.log(error)

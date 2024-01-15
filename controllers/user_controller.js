@@ -10,13 +10,10 @@ const {
 
 const registerNewUser = (req, res) => {
     const {username, password, email} = req.body;
-    // console.log(username, password, email);
     const salt = bcrypt.genSaltSync(saltRounds);
     const hashedPass = bcrypt.hashSync(password, salt)
-    // console.log(hashedPass);
     newUserInDB(username, hashedPass, email)
         .then(data => {
-            console.log(data);
             res.json(data)
         })
         .catch(err => {
