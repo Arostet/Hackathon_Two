@@ -18,7 +18,7 @@ const registerNewUser = (req, res) => {
     newUserInDB(username, hashedPass, email)
         .then(data => {
             console.log('user created',data)
-            res.json({msg:'User created!'})
+            res.json(data)
         })
         .catch(err => {
             console.log(err);

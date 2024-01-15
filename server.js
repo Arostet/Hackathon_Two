@@ -11,10 +11,10 @@ app.use(express.json());
 
 app.use('/', router);
 
-// const __dirname = path.resolve();
 app.use('/', express.static( __dirname+'/public'));
 app.use('/user_login', express.static( __dirname+'/public/login.html'));
 app.use('/user_register', express.static( __dirname+'/public/registration.html'));
+// app.use('/user_page', express.static( __dirname+'/public/user_page.html'));
 
 app.listen(3001, () => {
   console.log("listening on 3001");
