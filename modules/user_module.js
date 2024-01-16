@@ -23,7 +23,7 @@ const newUserInDB =(username, hashedPass, email) =>{
 
 
 const getPassword = (enteredUsername) => {
-  return db('users').select('password').where({username : enteredUsername})
+  return db('users').select('password', 'id').where({username : enteredUsername})
 };
 
 

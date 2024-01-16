@@ -18,9 +18,11 @@ form.addEventListener("submit", (e) => {
     })
       .then((res) => res.json())
       .then((data) => {
-
+        // console.log(data);
         if (data.success == true) {
+          // console.log(data.id);
           localStorage.setItem('username', username);
+          localStorage.setItem('user_id', data.id);
           window.location.href = "http://localhost:3001/hello";
 
         } else {

@@ -34,10 +34,12 @@ if (localStorage.length === 0) {
     const pageHead = document.getElementById("pageHead");
     pageHead.style = "display: none";
     const workoutOptions = document.getElementsByClassName("options");
+    const allBodyParts = [];
     for (let i = 0; i < workoutOptions.length; i++) {
       if (workoutOptions[i].checked) {
         const bodyPart = workoutOptions[i].id;
-        console.log(bodyPart);
+        allBodyParts.push(bodyPart);
+        console.log(allBodyParts);
         const url = `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}?limit=2`;
         const options = {
           method: "GET",
@@ -52,6 +54,7 @@ if (localStorage.length === 0) {
           const response = await fetch(url, options);
           const result = await response.json();
           render(result);
+          sendStstus(allBodyParts);
         } catch (error) {
           console.error(error);
         }
@@ -74,3 +77,27 @@ if (localStorage.length === 0) {
     });
   };
 }
+
+
+const sendStstus = async(bodyparts) => {
+  const message = 'I started training!'
+  // const username = localStorage.getItem('username');
+  const id = localStorage.getItem('user_id');
+  console.log(id);
+  const newMessage = {id, message, bodyparts};
+  console.log(newMessage);
+    fetch("http://localhost:3001/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newMessage),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+          console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };

@@ -25,6 +25,7 @@ form.addEventListener("submit", (e) => {
 
         } else {
           localStorage.setItem('username', data.username);
+          localStorage.setItem('user_id', data.id);
           window.location.href = "http://localhost:3001/hello";
         }
       })

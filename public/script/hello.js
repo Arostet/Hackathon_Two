@@ -9,8 +9,12 @@ if (localStorage.length === 0) {
 
     document.getElementById('hello').innerText = `Hello, ${localStorage.getItem('username')}`
 
-    function redirect(){
+    function redirectTraining(){
         window.location.href = "http://localhost:3001/user_page";
+    }
+
+    function redirectCommunity(){
+        window.location.href = "http://localhost:3001/community";
     }
 
 }
