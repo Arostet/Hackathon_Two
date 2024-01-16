@@ -20,6 +20,7 @@ app.use(
 );
 app.use("/hello", express.static(__dirname + "/public/hello_page.html"));
 app.use("/user_page", express.static(__dirname + "/public/user_page.html"));
+app.use('/community', express.static( __dirname+'/public/community.html'));
 
 app.listen(3001, () => {
   console.log("listening on 3001");
