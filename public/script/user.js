@@ -6,10 +6,11 @@ if (localStorage.length === 0) {
     window.location.href = "http://localhost:3001/";
   }
 
+  let notTrainingNow = true;
+
   const container = document.getElementById("container");
 
   const form = document.forms[0];
-  console.log(form);
 
   const workoutOptions = document.querySelectorAll(".options");
   var max = 3;
@@ -59,6 +60,10 @@ if (localStorage.length === 0) {
         }
       }
     }
+    const buttonEnd_HTML = '<button id="end" onclick="endWorkout()">End workout</button>'
+    container.innerHTML+=buttonEnd_HTML;
+
+    notTrainingNow = false;
     const message = 'I started training!'
       sendStstus(message,allBodyParts);
       console.log( 'I sended a message!')
@@ -76,6 +81,7 @@ if (localStorage.length === 0) {
       const img = document.createElement("img");
       img.src = gif;
       container.appendChild(img);
+
     });
   };
 
@@ -100,10 +106,8 @@ if (localStorage.length === 0) {
         });
     };
 
-  let messageIsSended = false;
-
   function endWorkout(){
-    messageIsSended = true;
+    notTrainingNow = true;
     const message = 'I ended training!';
     const allBodyParts = [];
     sendStstus(message,allBodyParts);
@@ -111,7 +115,7 @@ if (localStorage.length === 0) {
   }
   
   window.addEventListener('beforeunload', function (e) {
-    if (messageIsSended = false) {
+    if (notTrainingNow = false) {
       const message = 'I ended training!';
       const allBodyParts = [];
       sendStstus(message,allBodyParts); 
