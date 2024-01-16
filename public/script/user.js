@@ -54,7 +54,9 @@ if (localStorage.length === 0) {
           const response = await fetch(url, options);
           const result = await response.json();
           render(result);
-          sendStstus(allBodyParts);
+
+          const message = 'I started training!'
+          sendStstus(message,allBodyParts);
         } catch (error) {
           console.error(error);
         }
@@ -79,8 +81,8 @@ if (localStorage.length === 0) {
 }
 
 
-const sendStstus = async(bodyparts) => {
-  const message = 'I started training!'
+const sendStstus = async(message, bodyparts) => {
+  // const message = 'I started training!'
   // const username = localStorage.getItem('username');
   const id = localStorage.getItem('user_id');
   console.log(id);
@@ -101,3 +103,12 @@ const sendStstus = async(bodyparts) => {
         console.log(err);
       });
   };
+
+
+  window.addEventListener('beforeunload', function (e) {
+    
+    const message = 'I ended training!';
+    const allBodyParts = [];
+    sendStstus(message,allBodyParts);
+    
+});
