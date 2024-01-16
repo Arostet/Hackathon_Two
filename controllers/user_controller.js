@@ -44,7 +44,7 @@ const logIn = (req, res) => {
                     res.status(500).json({ success: false, msg: 'Internal server error' });
                 } else {
                     if (result) {
-                        res.json({ success: true, msg: 'Login successful' });
+                        res.json({ success: true, id: user[0].id});
                     } else {
                         res.status(401).json({ success: false, msg: 'Incorrect password' });
                     }
