@@ -13,7 +13,7 @@ if (localStorage.length === 0) {
   const form = document.forms[0];
 
   const workoutOptions = document.querySelectorAll(".options");
-  var max = 3;
+  let max = 3;
   for (let i = 0; i < workoutOptions.length; i++) {
     workoutOptions[i].addEventListener("click", function (event) {
       if (!checkboxLimit(event)) {
@@ -60,13 +60,14 @@ if (localStorage.length === 0) {
         }
       }
     }
-    const buttonEnd_HTML = '<button id="end" onclick="endWorkout()">End workout</button>'
-    container.innerHTML+=buttonEnd_HTML;
+    const buttonEnd_HTML =
+      '<button id="end" onclick="endWorkout()">End workout</button>';
+    container.innerHTML += buttonEnd_HTML;
 
     notTrainingNow = false;
-    const message = 'I started training!'
-      sendStstus(message,allBodyParts);
-      console.log( 'I sended a message!')
+    const message = "I started training!";
+    sendStstus(message, allBodyParts);
+    console.log("I sended a message!");
   });
 
   const render = (data) => {
@@ -81,46 +82,43 @@ if (localStorage.length === 0) {
       const img = document.createElement("img");
       img.src = gif;
       container.appendChild(img);
-
     });
   };
 
-  const sendStstus = async(message, bodyparts) => {
-    const id = localStorage.getItem('user_id');
+  const sendStstus = async (message, bodyparts) => {
+    const id = localStorage.getItem("user_id");
     console.log(id);
-    const newMessage = {id, message, bodyparts};
+    const newMessage = { id, message, bodyparts };
     console.log(newMessage);
-      fetch("http://localhost:3001/messages", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newMessage),
+    fetch("http://localhost:3001/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newMessage),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
       })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  function endWorkout(){
+  function endWorkout() {
     notTrainingNow = true;
-    const message = 'I ended training!';
+    const message = "I ended training!";
     const allBodyParts = [];
-    sendStstus(message,allBodyParts);
+    sendStstus(message, allBodyParts);
     window.location.href = "http://localhost:3001/hello";
   }
-  
-  window.addEventListener('beforeunload', function (e) {
-    if (notTrainingNow = false) {
-      const message = 'I ended training!';
+
+  window.addEventListener("beforeunload", function (e) {
+    if ((notTrainingNow = false)) {
+      const message = "I ended training!";
       const allBodyParts = [];
-      sendStstus(message,allBodyParts); 
+      sendStstus(message, allBodyParts);
     }
   });
 }
-
-
