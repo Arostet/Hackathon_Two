@@ -3,12 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style/style.css" />
     <title>Document</title>
   </head>
   <body>
     <h1>Welcome to the Community Forum</h1>
     <section id="container" class="scrollable-div"></section>
+    <button id="logout" onclick="logout()" style="margin: 10px">Log Out</button>
+    <button id="workout" onclick="redirectWorkout()" style="margin: 10px">
+      Workout
+    </button>
+    <button id="back" onclick="redirectHello()" style="margin: 10px">
+      Back
+    </button>
     <script src="script/comm_f.js"></script>
   </body>
 </html>

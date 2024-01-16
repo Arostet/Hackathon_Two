@@ -32,3 +32,11 @@ const render = (data) => {
     container.innerHTML = html;
   });
 };
+
+function redirectWorkout() {
+  window.location.href = "http://localhost:3001/user_page";
+}
+
+function redirectHello() {
+  window.location.href = "http://localhost:3001/hello";
+}
