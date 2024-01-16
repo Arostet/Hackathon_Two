@@ -5,6 +5,7 @@ const {
     isUserExists,
     newUserInDB,
     getPassword,
+    getUsersFromDB,
 } = require ('../modules/user_module.js');
 
 
@@ -57,9 +58,19 @@ const logIn = (req, res) => {
     });
 };
 
+const getUserNames = (req, res) => {
+    getUsersFromDB().then(users => {
+        res.json(users);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).json(err);
+    });
+    }
 
 
 module.exports = {
     registerNewUser,
     logIn,
+    getUserNames,
 }

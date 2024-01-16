@@ -67,7 +67,6 @@ if (localStorage.length === 0) {
     notTrainingNow = false;
     const message = "I started training!";
     sendStstus(message, allBodyParts);
-    console.log("I sended a message!");
   });
 
   const render = (data) => {
@@ -87,9 +86,8 @@ if (localStorage.length === 0) {
 
   const sendStstus = async (message, bodyparts) => {
     const id = localStorage.getItem("user_id");
-    console.log(id);
-    const newMessage = { id, message, bodyparts };
-    console.log(newMessage);
+    const to_user = 0;
+    const newMessage = { id, message, bodyparts, to_user};
     fetch("http://localhost:3001/messages", {
       method: "POST",
       headers: {

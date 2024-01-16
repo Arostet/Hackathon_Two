@@ -27,8 +27,14 @@ const getPassword = (enteredUsername) => {
 };
 
 
+const getUsersFromDB = () => {
+  return db('users').select('username', 'id');
+}
+
+
 module.exports = {
   isUserExists,
   newUserInDB,
   getPassword,
+  getUsersFromDB,
 }

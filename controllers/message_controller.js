@@ -1,8 +1,8 @@
 const { newMessageDB, getMessagesDB } = require("../modules/message_module.js");
 
 const newMessage = (req, res) => {
-  const { id, message, bodyparts } = req.body;
-  newMessageDB(id, message, bodyparts)
+  const { id, message, bodyparts, to_user} = req.body;
+  newMessageDB(id, message, bodyparts, to_user)
     .then((data) => {
       res.status(200).json(data);
     })

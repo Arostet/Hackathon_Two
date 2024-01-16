@@ -27,8 +27,8 @@ if (localStorage.length > 0) {
             document.getElementById('error').innerText = data.msg;
 
           } else {
-            localStorage.setItem('username', data.username);
-            localStorage.setItem('user_id', data.id);
+            localStorage.setItem('username', username);
+            localStorage.setItem('user_id', data[0].id);
             window.location.href = "http://localhost:3001/hello";
           }
         })

@@ -9,6 +9,13 @@
   <body>
     <h1>Welcome to the Community Forum</h1>
     <section id="container" class="scrollable-div"></section>
+    <form action="">
+      <input type="text" id="message" />
+      <input type="submit" />
+      <select name="allUsers" id="allUsers">
+        <option value="0" >Select User to send directly</option>
+      </select>
+    </form>
     <button id="logout" onclick="logout()" style="margin: 10px">Log Out</button>
     <button id="workout" onclick="redirectWorkout()" style="margin: 10px">
       Workout
@@ -16,10 +23,6 @@
     <button id="back" onclick="redirectHello()" style="margin: 10px">
       Back
     </button>
-    <form action="">
-      <input type="text" id="message" />
-      <input type="submit" />
-    </form>
     <script src="script/comm_f.js"></script>
   </body>
 </html>
