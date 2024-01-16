@@ -95,13 +95,7 @@ const sendStstus = async(bodyparts) => {
     })
       .then((res) => res.json())
       .then((data) => {
-
-        // if (data.msg) {
-        //   document.getElementById('error').innerText = data.msg;
-
-        // } else {
           console.log(data);
-        // }
       })
       .catch((err) => {
         console.log(err);
