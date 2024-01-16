@@ -15,7 +15,10 @@ const newMessageDB = (id, message, bodyparts) => {
 };
 
 const getMessagesDB = () => {
-  return db("messages").select("*").returning("*");
+  return db("messages")
+    .select("username", "message", "time", "bodyparts")
+    .innerJoin("users", "messages.user_id", "users.id")
+    .returning("*");
 };
 
 module.exports = {
