@@ -6,8 +6,10 @@
     <title>User Page</title>
   </head>
   <body>
+    <button onclick="logout()">Log Out</button>
+
     <section id="container">
-      <div>What would you like to focus on today?</div>
+      <div id="pageHead">What would you like to focus on today?</div>
       <form action="">
         <input
           type="checkbox"
@@ -38,7 +40,7 @@
 
         <input
           type="checkbox"
-          id="lowerArm"
+          id="lower arms"
           name="lowerArm"
           value="lowerArm"
           class="options"
@@ -47,7 +49,7 @@
 
         <input
           type="checkbox"
-          id="lowerLeg"
+          id="lower legs"
           name="lowerLeg"
           value="lowerLeg"
           class="options"
@@ -68,26 +70,41 @@
           id="shoulders"
           name="shoulders"
           value="shoulders"
+          class="options"
         />
         <label for="shoulders"> Shoulders</label><br /><br />
 
-        <input type="checkbox" id="upperArm" name="upperArm" value="upperArm" />
+        <input
+          type="checkbox"
+          id="upper arms"
+          name="upperArm"
+          value="upperArm"
+          class="options"
+        />
         <label for="upperArm"> Upper Arm</label><br /><br />
 
         <input
           type="checkbox"
-          id="upperLegs"
+          id="upper legs"
           name="upperLegs"
           value="upperLegs"
+          class="options"
         />
         <label for="upperLegs"> Upper Legs</label><br /><br />
 
-        <input type="checkbox" id="waist" name="waist" value="waist" />
+        <input
+          type="checkbox"
+          id="waist"
+          name="waist"
+          value="waist"
+          class="options"
+        />
         <label for="waist"> Waist</label><br /><br />
 
         <input type="submit" value="Submit" />
       </form>
     </section>
+
     <script src="user.js"></script>
   </body>
 </html>
