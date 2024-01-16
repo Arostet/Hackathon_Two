@@ -78,37 +78,39 @@ if (localStorage.length === 0) {
       container.appendChild(img);
     });
   };
-}
 
-
-const sendStstus = async(message, bodyparts) => {
-  // const message = 'I started training!'
-  // const username = localStorage.getItem('username');
-  const id = localStorage.getItem('user_id');
-  console.log(id);
-  const newMessage = {id, message, bodyparts};
-  console.log(newMessage);
-    fetch("http://localhost:3001/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newMessage),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-          console.log(data);
+  const sendStstus = async(message, bodyparts) => {
+    const id = localStorage.getItem('user_id');
+    console.log(id);
+    const newMessage = {id, message, bodyparts};
+    console.log(newMessage);
+      fetch("http://localhost:3001/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newMessage),
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-
-  window.addEventListener('beforeunload', function (e) {
-    
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+  
+  function endWorkout(){
     const message = 'I ended training!';
     const allBodyParts = [];
     sendStstus(message,allBodyParts);
-    
-});
+  }
+  
+  window.addEventListener('beforeunload', function (e) {
+    const message = 'I ended training!';
+    const allBodyParts = [];
+    sendStstus(message,allBodyParts); 
+  });
+}
+
+
