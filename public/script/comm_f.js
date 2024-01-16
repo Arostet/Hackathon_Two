@@ -5,7 +5,7 @@ if (localStorage.length === 0) {
     localStorage.clear();
     window.location.href = "http://localhost:3001/";
   }
-}
+
 
 const container = document.getElementById("container");
 
@@ -39,4 +39,30 @@ function redirectWorkout() {
 
 function redirectHello() {
   window.location.href = "http://localhost:3001/hello";
+}
+
+
+
+const sendStstus = async(message) => {
+  const bodyparts = [];
+  const id = localStorage.getItem('user_id');
+  console.log(id);
+  const newMessage = {id, message, bodyparts};
+  console.log(newMessage);
+    fetch("http://localhost:3001/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newMessage),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+          console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
 }
