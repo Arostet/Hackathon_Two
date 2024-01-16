@@ -1,3 +1,12 @@
+if (localStorage.length === 0) {
+  window.location.href = "http://localhost:3001/";
+} else {
+  function logout() {
+    localStorage.clear();
+    window.location.href = "http://localhost:3001/";
+  }
+}
+
 const container = document.getElementById("container");
 
 const getMessages = async () => {
@@ -12,8 +21,13 @@ const render = (data) => {
   data.then((res) => {
     let html = "";
     res.forEach((item) => {
-      html += `    <div>${item.username} says ${item.message}.</div>
-        <div> Workout: ${item.bodyparts} at ${item.time}</div>`;
+      if (item.bodyparts.length < 3) {
+        html += `    <div><b>${item.username}</b> says ${item.message}.
+                Workout at ${item.time}</div><br>`;
+      } else {
+        html += `    <div><b>${item.username}</b> says ${item.message}.
+                Workout: <b>${item.bodyparts}</b> at ${item.time}</div><br>`;
+      }
     });
     container.innerHTML = html;
   });
