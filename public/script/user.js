@@ -54,14 +54,14 @@ if (localStorage.length === 0) {
           const response = await fetch(url, options);
           const result = await response.json();
           render(result);
-
-          const message = 'I started training!'
-          sendStstus(message,allBodyParts);
         } catch (error) {
           console.error(error);
         }
       }
     }
+    const message = 'I started training!'
+      sendStstus(message,allBodyParts);
+      console.log( 'I sended a message!')
   });
 
   const render = (data) => {
@@ -99,17 +99,23 @@ if (localStorage.length === 0) {
           console.log(err);
         });
     };
-  
+
+  let messageIsSended = false;
+
   function endWorkout(){
+    messageIsSended = true;
     const message = 'I ended training!';
     const allBodyParts = [];
     sendStstus(message,allBodyParts);
+    window.location.href = "http://localhost:3001/hello";
   }
   
   window.addEventListener('beforeunload', function (e) {
-    const message = 'I ended training!';
-    const allBodyParts = [];
-    sendStstus(message,allBodyParts); 
+    if (messageIsSended = false) {
+      const message = 'I ended training!';
+      const allBodyParts = [];
+      sendStstus(message,allBodyParts); 
+    }
   });
 }
 
