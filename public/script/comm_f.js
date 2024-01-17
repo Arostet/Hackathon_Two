@@ -30,7 +30,7 @@ if (localStorage.length === 0) {
                   Workout: <b>${item.bodyparts}</b> at ${item.time}</div><br>`;
           }
         }
-        else if (item.to_user == localStorage.getItem('user_id')) {
+        else if (item.to_user == localStorage.getItem('user_id') || item.username == localStorage.getItem('username')) {
           html += `    <div style = "color:red"><b>${item.username}</b> says ${item.message}.
                 At ${item.time}</div><br>`;
         }
