@@ -32,9 +32,7 @@ if (localStorage.length === 0) {
             html += `    <div><b>${item.username}</b> says ${item.message}.
                   Workout: <b>${item.bodyparts}</b> at ${item.time}</div><br>`;
           }
-        }
-        //if sent to individual user
-        else if (item.to_user == localStorage.getItem("user_id")) {
+        } else if (item.to_user == localStorage.getItem("user_id")) {
           html += `    <div style = "color:red"><b>${item.username}</b> says ${item.message}.
                 At ${item.time}</div><br>`;
         }
