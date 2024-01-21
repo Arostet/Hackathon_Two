@@ -11,7 +11,7 @@ if (localStorage.length === 0) {
   const container = document.getElementById("container");
 
   const form = document.forms[0];
-
+  //make sure that only 3 options can be checked for each workout
   const workoutOptions = document.querySelectorAll(".options");
   let max = 3;
   for (let i = 0; i < workoutOptions.length; i++) {
@@ -27,7 +27,7 @@ if (localStorage.length === 0) {
     if (checkedChecks.length >= max + 1) return false;
     return true;
   }
-
+  //create workout based on checked boxes
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -68,7 +68,7 @@ if (localStorage.length === 0) {
     const message = "I started training!";
     sendStstus(message, allBodyParts);
   });
-
+  //render workout in html
   const render = (data) => {
     data.forEach((item) => {
       const part = item.bodyPart;
@@ -83,11 +83,11 @@ if (localStorage.length === 0) {
       container.appendChild(img);
     });
   };
-
+  //post new message about workout
   const sendStstus = async (message, bodyparts) => {
     const id = localStorage.getItem("user_id");
     const to_user = 0;
-    const newMessage = { id, message, bodyparts, to_user};
+    const newMessage = { id, message, bodyparts, to_user };
     fetch("http://localhost:3001/messages", {
       method: "POST",
       headers: {
@@ -103,7 +103,7 @@ if (localStorage.length === 0) {
         console.log(err);
       });
   };
-
+  //finish training message
   function endWorkout() {
     notTrainingNow = true;
     const message = "I ended training!";

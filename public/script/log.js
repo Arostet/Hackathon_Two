@@ -2,13 +2,13 @@ if (localStorage.length > 0) {
   window.location.href = "http://localhost:3001/hello";
 } else {
   const form = document.forms[0];
-
+  //post data to login
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    
+
     let userData = { username, password };
     const sendData = async () => {
       fetch("http://localhost:3001/login", {
@@ -21,12 +21,11 @@ if (localStorage.length > 0) {
         .then((res) => res.json())
         .then((data) => {
           if (data.success == true) {
-            localStorage.setItem('username', username);
-            localStorage.setItem('user_id', data.id);
+            localStorage.setItem("username", username);
+            localStorage.setItem("user_id", data.id);
             window.location.href = "http://localhost:3001/hello";
-
           } else {
-            document.getElementById('error').innerText = data.msg;
+            document.getElementById("error").innerText = data.msg;
           }
         })
         .catch((err) => {
