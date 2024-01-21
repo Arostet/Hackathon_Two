@@ -1,11 +1,16 @@
+// first condition checks if the user is logged in
+// if not will redirect to the first page
 if (localStorage.length === 0) {
   window.location.href = "http://localhost:3001/";
 } else {
+  // button logout clears local storage and redirects to the first page
   function logout() {
     localStorage.clear();
     window.location.href = "http://localhost:3001/";
   }
 
+  // variable that stores data if the user started or finished the workout
+  // (for sending message about starting or finishing to the community)
   let notTrainingNow = true;
 
   const container = document.getElementById("container");
@@ -27,15 +32,22 @@ if (localStorage.length === 0) {
     if (checkedChecks.length >= max + 1) return false;
     return true;
   }
-  //create workout based on checked boxes
+
+  //big function, runned by button 'submit', after 3 bodyparts were selected
+  //creates workout based on checked boxes (fetches from API end renders)
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    // hides form with bodyparts
     form.style = "display: none";
     const pageHead = document.getElementById("pageHead");
     pageHead.style = "display: none";
+
     const workoutOptions = document.getElementsByClassName("options");
+    //will save all rendered bodyparts for a message about beginning of training 
     const allBodyParts = [];
+
+  
     for (let i = 0; i < workoutOptions.length; i++) {
       if (workoutOptions[i].checked) {
         const bodyPart = workoutOptions[i].id;
@@ -60,14 +72,21 @@ if (localStorage.length === 0) {
         }
       }
     }
+
+
+    // changes a status, sendes a message to community
+    notTrainingNow = false;
+    console.log ('notTrainingNow', notTrainingNow, 'started training');
+    const message = "I started training!";
+    sendStstus(message, allBodyParts);
+
+    // addes button for ending workout
     const buttonEnd_HTML =
       '<button id="end" onclick="endWorkout()">End workout</button>';
     container.innerHTML += buttonEnd_HTML;
-
-    notTrainingNow = false;
-    const message = "I started training!";
-    sendStstus(message, allBodyParts);
   });
+
+
   //render workout in html
   const render = (data) => {
     data.forEach((item) => {
@@ -83,9 +102,11 @@ if (localStorage.length === 0) {
       container.appendChild(img);
     });
   };
+
   //post new message about workout
   const sendStstus = async (message, bodyparts) => {
     const id = localStorage.getItem("user_id");
+    // 0 means that message not direct, for all comunity
     const to_user = 0;
     const newMessage = { id, message, bodyparts, to_user };
     fetch("http://localhost:3001/messages", {
@@ -103,17 +124,27 @@ if (localStorage.length === 0) {
         console.log(err);
       });
   };
+
   //finish training message
   function endWorkout() {
+    //changes a status 
     notTrainingNow = true;
+    console.log ('notTrainingNow', notTrainingNow, 'ended training');
+     //sends a message about ending a training;
     const message = "I ended training!";
+    // new variable allBodyParts, just inside a function 
+    // because we dont neeed to send bodyparts in this message
     const allBodyParts = [];
     sendStstus(message, allBodyParts);
+    //redirects to the hello page
     window.location.href = "http://localhost:3001/hello";
   }
 
+  //finish training if user leaves the page
   window.addEventListener("beforeunload", function (e) {
-    if ((notTrainingNow = false)) {
+    // checks a status (for preventind double message about ending)
+    if ((notTrainingNow == false)) {
+      //sends a message about ending a training
       const message = "I ended training!";
       const allBodyParts = [];
       sendStstus(message, allBodyParts);

@@ -1,7 +1,9 @@
-//check if user is signed in
+// first condition checks if the user is logged in
+// if not will redirect to the first page
 if (localStorage.length === 0) {
   window.location.href = "http://localhost:3001/";
 } else {
+  // button logout clears local storage and redirects to the first page
   function logout() {
     localStorage.clear();
     window.location.href = "http://localhost:3001/";
@@ -25,13 +27,16 @@ if (localStorage.length === 0) {
         //if it is a message to all users
         if (item.to_user == null || item.to_user == 0) {
           //in order to not display {}
+          // messages without bodyparts
           if (item.bodyparts.length < 3) {
             html += `    <div><b>${item.username}</b> says ${item.message}.
                   Workout at ${item.time}</div><br>`;
           } else {
+            // with bodyparts (just messges about starting)
             html += `    <div><b>${item.username}</b> says ${item.message}.
                   Workout: <b>${item.bodyparts}</b> at ${item.time}</div><br>`;
           }
+        // for direct messages
         } else if (item.to_user == localStorage.getItem("user_id")) {
           html += `    <div style = "color:red"><b>${item.username}</b> says ${item.message}.
                 At ${item.time}</div><br>`;
@@ -78,6 +83,7 @@ if (localStorage.length === 0) {
     sendMessage();
   });
 
+  // dets all users from DB for list of user for direct messages
   const getUserNames = async () => {
     const response = await fetch("http://localhost:3001/users");
     response.json().then((users) => {
@@ -86,6 +92,7 @@ if (localStorage.length === 0) {
   };
   getUserNames();
 
+  // render list of user near the form of message
   const renderUsers = (users) => {
     let html = "";
     users.forEach((user) => {

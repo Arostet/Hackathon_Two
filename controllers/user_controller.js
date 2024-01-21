@@ -9,6 +9,9 @@ const {
 } = require ('../modules/user_module.js');
 
 
+// function that gets information about user, checks if this username or email already exist
+// if yes returns message about error
+// if not encrypts the password and addes new user to DB
 const registerNewUser = (req, res) => {
     const { username, password, email } = req.body;
 
@@ -31,7 +34,8 @@ const registerNewUser = (req, res) => {
     })
 };
 
-
+// function that check if user exists and if given password equal to password from DB (via bcrypt)
+// if not respondes with corresponding message
 const logIn = (req, res) => {
     const { username, password } = req.body;
     getPassword(username).then((user) => {
@@ -58,6 +62,7 @@ const logIn = (req, res) => {
     });
 };
 
+// get all user names from DB for direct messages
 const getUserNames = (req, res) => {
     getUsersFromDB().then(users => {
         res.json(users);
